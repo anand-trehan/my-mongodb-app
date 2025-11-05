@@ -26,16 +26,11 @@ export async function POST(request) {
 
     revalidatePath('/'); // Revalidate the home page to show new pet
 
-    // Redirect back to home page
-    // We use request.url to get the base URL
-    //const homeUrl = new URL('/', request.url);
-    // return NextResponse.redirect(homeUrl); 
-    return new Response(null, {
-      status: 303,
-      headers: {
-      'Location': '/'
-  }
-});
+    // Get the referer or origin to redirect back properly
+    const referer = request.headers.get('referer');
+    const redirectUrl = referer || '/';
+
+    return NextResponse.redirect(redirectUrl, 303);
 
   } catch (error) {
     // Simple error handling for now
