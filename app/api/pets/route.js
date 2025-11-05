@@ -28,8 +28,14 @@ export async function POST(request) {
 
     // Redirect back to home page
     // We use request.url to get the base URL
-    const homeUrl = new URL('/', request.url);
-    return NextResponse.redirect(homeUrl); 
+    //const homeUrl = new URL('/', request.url);
+    // return NextResponse.redirect(homeUrl); 
+    return new Response(null, {
+      status: 303,
+      headers: {
+      'Location': '/'
+  }
+});
 
   } catch (error) {
     // Simple error handling for now
